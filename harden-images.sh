@@ -1,5 +1,16 @@
-apt-get -y update && apt-get -y upgrade
-apt-get install -y python3 python3-pip python3-apt
-pip3 install 'ansible==2.9.6'
+ansible_version="2.9.6"
 
-ansible-playbook playbook.yml
+if [ $(python3 --version &>/dev/null) ]
+then
+    apt-get install -y python3
+fi
+
+if [ $(pip3 --version &>/dev/null) ]
+then
+    apt-get install -y python3-pip
+fi
+
+pip3 install "ansible==${ansible_version}"
+
+
+ansible-playbook deb9-cis-playbook.yml
