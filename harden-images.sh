@@ -2,23 +2,17 @@ ansible_version="2.9.6"
 
 install_ansible () {
 
-    if [ $(python3 --version &>/dev/null) ]
-    then
-        apt-get install -y python3
-    fi
-
-    if [ $(pip3 --version &>/dev/null) ]
-    then
-        apt-get install -y python3-pip
-    fi
-
+    echo "Installing ansible..."
+    apt-get install -y python3
+    apt-get install -y python3-pip
     pip3 install "ansible==${ansible_version}"
 
 }
 
 install_ansible_roles () {
 
-    ansible-galaxy install -p roles -r requirements.yml
+    echo "Installing hardening role..."
+    ansible-galaxy install -p roles -r CIS-harden-images/requirements.yml
 
 }
 
