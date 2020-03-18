@@ -23,12 +23,12 @@ check_requirements () {
 activate_venv () {
     echo "Activating virtualenv..."
     virtualenv ansible-venv
-    source /ansible-venv/bin/activate
+    source ansible-venv/bin/activate
 }
 
 deactivate_venv () {
     echo "Deactivating virtualenv..."
-    source deactivate
+    deactivate
 } 
 
 install_ansible () {
