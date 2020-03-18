@@ -3,8 +3,8 @@ ansible_version="2.9.6"
 install_ansible () {
 
     echo "Installing ansible..."
-    apt-get install -y python3
-    apt-get install -y python3-pip
+    sudo apt-get install -y python3
+    sudo apt-get install -y python3-pip
     pip3 install "ansible==${ansible_version}"
 
 }
