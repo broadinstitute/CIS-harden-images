@@ -12,7 +12,7 @@ install_ansible () {
 install_ansible_roles () {
 
     echo "Installing hardening role..."
-    ansible-galaxy install -p roles -r CIS-harden-images/requirements.yml
+    ansible-galaxy install -p roles -r requirements.yml
 
 }
 
@@ -21,6 +21,8 @@ run_playbook () {
     ansible-playbook deb9-cis-playbook.yml
 
 }
+
+cd "$(dirname "$0")"
 
 install_ansible
 
