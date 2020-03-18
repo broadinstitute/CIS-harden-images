@@ -15,7 +15,7 @@ check_requirements () {
 
     if ! which virtualenv > /dev/null 2>&1;
     then
-        pip3 install virtualenv
+        sudo pip3 install virtualenv
     fi
 
 }
