@@ -21,16 +21,18 @@ check_requirements () {
 }
 
 activate_venv () {
+    echo "Activating virtualenv..."
     virtualenv ansible-venv
     source /ansible-venv/bin/activate
 }
 
 deactivate_venv () {
+    echo "Deactivating virtualenv..."
     source deactivate
 } 
 
 install_ansible () {
-    
+    echo "Installing ansible..."
     pip3 install "ansible==${ansible_version}"
 
 }
@@ -44,6 +46,7 @@ install_ansible_roles () {
 
 run_playbook () {
 
+    echo "Running playbook..."
     # ansible-playbook deb9-cis-playbook.yml
 
 }
