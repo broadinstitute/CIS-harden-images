@@ -22,6 +22,8 @@ run_playbook () {
 
 }
 
+cd "$(dirname "$0")"
+
 install_ansible
 
 install_ansible_roles
