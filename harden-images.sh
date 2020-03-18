@@ -47,7 +47,7 @@ install_ansible_roles () {
 run_playbook () {
 
     echo "Running playbook..."
-    # ansible-playbook deb9-cis-playbook.yml
+    ansible-playbook deb9-cis-playbook.yml
 
 }
 
