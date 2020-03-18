@@ -3,4 +3,4 @@
   become: yes
 
   roles:
-  - debian9-CIS
+  - Debian9-CIS
