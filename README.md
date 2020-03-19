@@ -5,7 +5,8 @@ To run CIS hardening via ansible, clone this repo and call the script. The scrip
 Make sure to replace the `[OS]` below with your system. 
 
 Currently, supported systems include:
-    * `debian9`
+
+* `debian9`
 
 ```
 git clone https://github.com/broadinstitute/CIS-harden-images.git
