@@ -1,3 +1,4 @@
+set -e
 ansible_version="2.9.6"
 
 check_requirements () {
@@ -11,6 +12,11 @@ check_requirements () {
     if ! which pip3 > /dev/null 2>&1;
     then
         sudo apt-get install -y python3-pip
+    fi
+
+    if ! which git > /dev/null 2>&1;
+    then
+        sudo apt-get install -y git
     fi
 
     if ! which virtualenv > /dev/null 2>&1;
