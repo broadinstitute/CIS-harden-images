@@ -30,6 +30,7 @@ activate_venv () {
     echo "Activating virtualenv..."
     virtualenv ansible-venv
     source ansible-venv/bin/activate
+    pip3 install python-apt
 }
 
 deactivate_venv () {
