@@ -59,7 +59,7 @@ install_ansible_roles () {
 run_playbook () {
 
     echo "Running playbook..."
-    ansible-playbook deb9-cis-playbook.yml
+    ansible-playbook -e ansible_python_interpreter=/usr/bin/python3 deb9-cis-playbook.yml
 
 }
 
