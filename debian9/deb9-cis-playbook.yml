@@ -3,4 +3,4 @@
   become: yes
 
   roles:
-  - Debian9-CIS
+  - dsp-appsec-debian9-hardening-role

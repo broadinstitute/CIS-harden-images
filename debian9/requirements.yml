@@ -1,2 +1,2 @@
-- src: https://github.com/broadinstitute/Debian9-CIS.git
-  version: b6b340582b1a4fd07c40013c7c46f607cee085ae
+- src: https://github.com/broadinstitute/dsp-appsec-debian9-hardening-role.git
+  version: 49dc5e07a3e032822f4021309f527ba1aae8c6a5
