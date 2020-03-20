@@ -21,7 +21,7 @@ check_requirements () {
 
     if ! which python-apt > /dev/null 2>&1;
     then
-        sudo apt-get install -y python-apt
+        sudo apt-get install -y python3-apt
     fi
 
     if ! which virtualenv > /dev/null 2>&1;
