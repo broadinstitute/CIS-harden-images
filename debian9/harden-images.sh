@@ -21,7 +21,8 @@ check_requirements () {
 
     if ! which python-apt > /dev/null 2>&1;
     then
-        sudo apt-get install -y python3-apt
+        echo "hello"
+        # sudo apt-get install -y python3-apt
     fi
 
     if ! which virtualenv > /dev/null 2>&1;
@@ -35,6 +36,7 @@ activate_venv () {
     echo "Activating virtualenv..."
     virtualenv ansible-venv
     source ansible-venv/bin/activate
+    sudo pip3 install python3-apt
 }
 
 deactivate_venv () {
