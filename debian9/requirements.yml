@@ -1,1 +1,2 @@
 - src: https://github.com/broadinstitute/dsp-appsec-debian9-hardening-role.git
+  version: 8076996c94dd707503cfcb110bd22daf6c3c4444
