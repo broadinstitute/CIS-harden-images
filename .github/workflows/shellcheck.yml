@@ -1,0 +1,18 @@
+name: 'Shellcheck'
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run ShellCheck
+      uses: ludeeus/action-shellcheck@c489c81f79527f818be72b97b918b06e75eaee6d
+      env:
+        SHELLCHECK_OPTS: -e SC1091
