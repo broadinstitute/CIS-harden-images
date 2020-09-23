@@ -4,29 +4,24 @@ ansible_version="2.9.6"
 check_requirements () {
 
     echo "Installing requirements..."
-    if ! which python3 > /dev/null 2>&1;
+    if ! which python2 > /dev/null 2>&1;
     then
-        sudo apt-get install -y python3
+        sudo yum install -y python2
     fi
 
-    if ! which pip3 > /dev/null 2>&1;
+    if ! which pip > /dev/null 2>&1;
     then
-        sudo apt-get install -y python3-pip
+        sudo yum install -y python2-pip
     fi
 
     if ! which git > /dev/null 2>&1;
     then
-        sudo apt-get install -y git
-    fi
-
-    if ! which python-apt > /dev/null 2>&1;
-    then
-        sudo apt-get install -y python-apt
+        sudo yum install -y git
     fi
 
     if ! which virtualenv > /dev/null 2>&1;
     then
-        sudo pip3 install virtualenv
+        sudo pip install virtualenv
     fi
 
 }
@@ -35,7 +30,6 @@ activate_venv () {
     echo "Activating virtualenv..."
     virtualenv ansible-venv
     source ansible-venv/bin/activate
-    sudo apt-get install -y python3-apt
 }
 
 deactivate_venv () {
@@ -59,7 +53,7 @@ install_ansible_roles () {
 run_playbook () {
 
     echo "Running playbook..."
-    ansible-playbook -e ansible_python_interpreter=/usr/bin/python3 centos7-cis-playbook.yml
+    ansible-playbook -e ansible_python_interpreter=/usr/bin/python2 centos7-cis-playbook.yml
 
 }
 
