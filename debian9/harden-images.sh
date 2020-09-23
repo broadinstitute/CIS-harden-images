@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 ansible_version="2.9.6"
 
