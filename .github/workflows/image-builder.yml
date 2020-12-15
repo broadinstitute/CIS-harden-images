@@ -4,10 +4,10 @@ on:
     - cron:  '0 0 1 3,6,9,12 *'
   push:
 jobs:
-  strategy:
-    matrix:
-      family: ['debian-9', 'centos-7']
   build:
+    strategy:
+      matrix:
+        family: ['debian-9', 'centos-7']
     env:
       IMAGE_FAMILY: ${{ matrix.family }}
     runs-on: ubuntu-latest
