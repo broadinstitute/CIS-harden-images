@@ -6,7 +6,7 @@ on:
 jobs:
   image_generation:
     env:
-      IMAGE_FAMILY: 'dabian-9'
+      IMAGE_FAMILY: 'debian-9'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,5 +20,5 @@ jobs:
       - name: get current source image
         id: source_image
         run: echo "::set-output name=SOURCE_IMAGE::$(gcloud compute images list --format='value(NAME)' --filter='family:${{ IMAGE_FAMILY }}')"
-      - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;${{ IMAGE_FAMILY }};g" template.yaml > cloudbuild.yaml
+      - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;$IMAGE_FAMILY;g" template.yaml > cloudbuild.yaml
       - run: cat cloudbuild.yaml
