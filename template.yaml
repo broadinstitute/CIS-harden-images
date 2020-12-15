@@ -1,0 +1,47 @@
+steps:
+- name: 'gcr.io/$PROJECT_ID/packer'
+  args:
+  - build
+  - -var
+  - project_id=$PROJECT_ID
+  - -var
+  - source_image=$_SOURCE_IMAGE
+  - -var
+  - image_family=$_IMAGE_FAMILY
+  - -var
+  - image_name=$_IMAGE_NAME
+  - packer.json
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['compute', 
+          'instances', 
+          'create', 
+          '${_IMAGE_NAME}-source-instance',
+          '--image-project',
+          '${PROJECT_ID}',
+          '--image',
+          '${_IMAGE_NAME}',
+          '--zone',
+          'us-central1-a']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta',
+      'compute',
+      'machine-images',
+      'create',
+      '${_IMAGE_NAME}',
+      '--source-instance',
+      '${_IMAGE_NAME}-source-instance',
+      '--source-instance-zone',
+      'us-central1-a']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['compute',
+          'instances',
+          'stop',
+          '${_IMAGE_NAME}-source-instance',
+          '--zone', 
+          'us-central1-a']
+
+
+substitutions:
+    _SOURCE_IMAGE: %SOURCE_IMAGE%
+    _IMAGE_FAMILY: %IMAGE_FAMILY%
+    _IMAGE_NAME: dsp-appsec-cis-%SOURCE_IMAGE%
