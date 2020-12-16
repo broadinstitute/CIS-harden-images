@@ -23,14 +23,19 @@ jobs:
       - name: get current source image
         id: source_image
         run: echo "::set-output name=SOURCE_IMAGE::$(gcloud compute images list --format='value(NAME)' --filter='family:${{ env.IMAGE_FAMILY }}')"
+      - name: get most recent hardened image
+        id: recent_image
+        continue-on-error: true
+        run: echo "::set-output name=RECENT_IMAGE::$(gcloud compute images list --format='value(NAME)' --sort-by='~creationTimestamp' --limit=1 --no-standard-images --filter='family:${{ env.IMAGE_FAMILY }}')"
       - name: set image name
         id: image_name
         run: echo "::set-output name=IMAGE_NAME::$(echo 'dsp-appsec-cis-${{ steps.source_image.outputs.SOURCE_IMAGE }}')"
-      - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;${{ env.IMAGE_FAMILY }};g" -e "s;%SOURCE_IMAGE%;${{ steps.image_name.outputs.IMAGE_NAME }};g" template.yaml > cloudbuild.yaml
-      - name: check if hardened image based on latest public image already exists
-        id: image_exists
-        continue-on-error: true
-        run: gcloud compute images describe ${{ steps.image_name.outputs.IMAGE_NAME }}
+      - run: sed \
+          -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" \
+          -e "s;%IMAGE_FAMILY%;${{ env.IMAGE_FAMILY }};g" \
+          -e "s;%IMAGE_NAME%;${{ steps.image_name.outputs.IMAGE_NAME }};g" \
+          -e "s;%PRIOR_NAME%;${{ steps.recent_image.outputs.RECENT_IMAGE }};g" \
+          template.yaml > cloudbuild.yaml
       - name: run cloudbuild
-        if: ${{ steps.image_exists.outcome }} == 'failure' }}
+        if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.recent_image.outputs.IMAGE_NAME }}
         run: cat cloudbuild.yaml
