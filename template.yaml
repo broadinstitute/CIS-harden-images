@@ -39,9 +39,18 @@ steps:
           '${_IMAGE_NAME}-source-instance',
           '--zone', 
           'us-central1-a']
-
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['compute',
+          'images',
+          'deprecate',
+          '${_PRIOR_IMAGE}',
+          '--state',
+          'DEPRECATED',
+          '--replacement',
+          '${_IMAGE_NAME}']
 
 substitutions:
     _SOURCE_IMAGE: %SOURCE_IMAGE%
     _IMAGE_FAMILY: %IMAGE_FAMILY%
-    _IMAGE_NAME: dsp-appsec-cis-%SOURCE_IMAGE%
+    _IMAGE_NAME: %IMAGE_NAME%
+    _PRIOR_IMAGE: %PRIOR_IMAGE%
