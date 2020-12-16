@@ -32,5 +32,5 @@ jobs:
         continue-on-error: true
         run: gcloud compute images describe ${{ steps.image_name.outputs.IMAGE_NAME }}
       - name: run cloudbuild
-        if: ${{ failure() }}
+        if: ${{ ${{ steps.image_exists.outcome }} == 'failure' }}
         run: cat cloudbuild.yaml
