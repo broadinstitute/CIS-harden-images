@@ -37,5 +37,5 @@ jobs:
           IMAGE_NAME: ${{ steps.image_name.outputs.IMAGE_NAME }}
           PRIOR_IMAGE: ${{ steps.recent_image.outputs.RECENT_IMAGE }}
       - name: run cloudbuild
-        if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.recent_image.outputs.IMAGE_NAME }}
+        if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.image_name.outputs.IMAGE_NAME }}
         run: cat cloudbuild.yaml
