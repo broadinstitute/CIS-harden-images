@@ -26,10 +26,10 @@ jobs:
       - name: set image name
         id: image_name
         run: echo "::set-output name=IMAGE_NAME::$(echo 'dsp-appsec-cis-${{ steps.source_image.outputs.SOURCE_IMAGE }}')"
+      - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;${{ env.IMAGE_FAMILY }};g" -e "s;%SOURCE_IMAGE%;${{ steps.image_name.outputs.IMAGE_NAME }};g" template.yaml > cloudbuild.yaml
       - name: check if hardened image based on latest public image already exists
         id: image_exists
-        run: echo "::set-output name=IMAGE_EXISTS::$(gcloud compute images list --filter='name:${{ steps.image_name.outputs.IMAGE_NAME }}' --format='value(NAME)')"
-      - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;${{ env.IMAGE_FAMILY }};g" -e "s;%SOURCE_IMAGE%;${{ steps.image_name.outputs.IMAGE_NAME }};g" template.yaml > cloudbuild.yaml
+        run: gcloud compute images describe ${{ steps.image_name.outputs.IMAGE_NAME }}
       - name: run cloudbuild
-        if: ${{ steps.image_name.outputs.IMAGE_NAME == steps.image_exists.outputs.IMAGE_EXISTS }}
+        if: ${{ failure() }}
         run: cat cloudbuild.yaml
