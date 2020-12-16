@@ -30,7 +30,7 @@ jobs:
       - name: set image name
         id: image_name
         run: echo "::set-output name=IMAGE_NAME::$(echo 'dsp-appsec-cis-${{ steps.source_image.outputs.SOURCE_IMAGE }}')"
-      - run: sed -e "s;%SOURCE_IMAGE%;$SOURCE_IMAGE;g" -e "s;%IMAGE_FAMILY%;$IMAGE_FAMILY;g" -e "s;%IMAGE_NAME%;$IMAGE_NAME;g" -e "s;%PRIOR_NAME%;$PRIOR_IMAGE;g" template.yaml > cloudbuild.yaml
+      - run: sed -e "s;%SOURCE_IMAGE%;$SOURCE_IMAGE;g" -e "s;%IMAGE_FAMILY%;$IMAGE_FAMILY;g" -e "s;%IMAGE_NAME%;$IMAGE_NAME;g" -e "s;%PRIOR_IMAGE%;$PRIOR_IMAGE;g" template.yaml > cloudbuild.yaml
         env:
           SOURCE_IMAGE: ${{ steps.source_image.outputs.SOURCE_IMAGE }}
           IMAGE_FAMILY: ${{ env.IMAGE_FAMILY }}
