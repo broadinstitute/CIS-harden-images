@@ -38,4 +38,4 @@ jobs:
           PRIOR_IMAGE: ${{ steps.recent_image.outputs.RECENT_IMAGE }}
       - name: run cloudbuild
         if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.image_name.outputs.IMAGE_NAME }}
-        run: cat cloudbuild.yaml
+        run: gcloud builds submit --timeout=1h .
