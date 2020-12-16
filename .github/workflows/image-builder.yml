@@ -29,6 +29,7 @@ jobs:
       - run: sed -e "s;%SOURCE_IMAGE%;${{ steps.source_image.outputs.SOURCE_IMAGE }};g" -e "s;%IMAGE_FAMILY%;${{ env.IMAGE_FAMILY }};g" -e "s;%SOURCE_IMAGE%;${{ steps.image_name.outputs.IMAGE_NAME }};g" template.yaml > cloudbuild.yaml
       - name: check if hardened image based on latest public image already exists
         id: image_exists
+        continue-on-error: true
         run: gcloud compute images describe ${{ steps.image_name.outputs.IMAGE_NAME }}
       - name: run cloudbuild
         if: ${{ failure() }}
