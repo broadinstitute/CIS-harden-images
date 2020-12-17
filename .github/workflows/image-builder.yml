@@ -2,7 +2,6 @@ name: API ZAP
 on:
   schedule:
     - cron:  '0 0 1 3,6,9,12 *'
-  push:
 jobs:
   build:
     strategy:
