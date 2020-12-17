@@ -54,7 +54,7 @@ install_ansible_roles () {
 run_playbook () {
 
     echo "Running playbook..."
-    ansible-playbook -e ansible_python_interpreter=/usr/bin/python2 centos7-cis-playbook.yml
+    ansible-playbook -e ansible_python_interpreter=/usr/bin/python2 playbook.yml
 
 }
 
