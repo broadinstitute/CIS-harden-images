@@ -19,7 +19,7 @@ jobs:
           project_id: ${{ secrets.GCSPROJECT }}
           service_account_key: ${{ secrets.GCLOUDSERVICEKEY }}
           export_default_credentials: true
-      - name: get current source image
+      - name: get current image version
         id: source_image
         run: echo "::set-output name=SOURCE_IMAGE::$(gcloud compute images list --format='value(NAME)' --filter='family:${{ env.IMAGE_FAMILY }}')"
       - name: get most recent hardened image
@@ -35,7 +35,6 @@ jobs:
           IMAGE_FAMILY: ${{ env.IMAGE_FAMILY }}
           IMAGE_NAME: ${{ steps.image_name.outputs.IMAGE_NAME }}
           PRIOR_IMAGE: ${{ steps.recent_image.outputs.RECENT_IMAGE }}
-      - run: cat cloudbuild.yaml
       - name: run cloudbuild
         if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.image_name.outputs.IMAGE_NAME }}
         run: gcloud builds submit --timeout=1h --async .
