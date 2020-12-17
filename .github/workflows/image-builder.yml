@@ -27,8 +27,6 @@ jobs:
         id: recent_image
         continue-on-error: true
         run: echo "::set-output name=RECENT_IMAGE::$(gcloud compute images list --sort-by='~creationTimestamp' --format='value(NAME)' --limit=1 --no-standard-images --filter='family:${{ env.IMAGE_FAMILY }}')"
-      - run: gcloud compute images list --format='value(NAME)' --sort-by='~creationTimestamp' --limit=1 --no-standard-images --filter='family:debian-9'
-      - run: echo ${{ steps.recent_image.outputs.RECENT_IMAGE }}
       - name: set image name
         id: image_name
         run: echo "::set-output name=IMAGE_NAME::$(echo 'dsp-appsec-cis-${{ steps.source_image.outputs.SOURCE_IMAGE }}')"
@@ -38,6 +36,7 @@ jobs:
           IMAGE_FAMILY: ${{ env.IMAGE_FAMILY }}
           IMAGE_NAME: ${{ steps.image_name.outputs.IMAGE_NAME }}
           PRIOR_IMAGE: ${{ steps.recent_image.outputs.RECENT_IMAGE }}
+      - run: cat cloudbuild.yaml
       - name: run cloudbuild
         if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.image_name.outputs.IMAGE_NAME }}
-        run: cat cloudbuild.yaml
+        run: gcloud builds submit cloudbuild.yaml
