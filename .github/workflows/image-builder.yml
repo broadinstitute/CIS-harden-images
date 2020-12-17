@@ -27,6 +27,7 @@ jobs:
         id: recent_image
         continue-on-error: true
         run: echo "::set-output name=RECENT_IMAGE::$(gcloud compute images list --format='value(NAME)' --sort-by='~creationTimestamp' --limit=1 --no-standard-images --filter='family:${{ env.IMAGE_FAMILY }}')"
+      - run: gcloud compute images list --format='value(NAME)' --sort-by='~creationTimestamp' --limit=1 --no-standard-images --filter='family:debian-9'
       - run: echo ${{ steps.recent_image.outputs.RECENT_IMAGE }}
       - name: set image name
         id: image_name
