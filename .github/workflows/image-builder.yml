@@ -39,4 +39,4 @@ jobs:
       - run: cat cloudbuild.yaml
       - name: run cloudbuild
         if: ${{ steps.recent_image.outputs.RECENT_IMAGE != steps.image_name.outputs.IMAGE_NAME }}
-        run: gcloud builds submit cloudbuild.yaml
+        run: gcloud builds submit .
